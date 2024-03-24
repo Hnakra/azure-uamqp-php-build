@@ -60,7 +60,7 @@ RUN cd /tmp \
 RUN mv /usr/local/include/azureiot/azure_uamqp_c /usr/local/include
 
     # make library for php
-RUN git clone https://github.com/vsouz4/azure-uamqp-php.git \
+RUN git clone https://github.com/hnakra/azure-uamqp-php.git \
     && cd azure-uamqp-php \
     && make \
     && make install
