@@ -56,10 +56,10 @@ RUN cd /tmp \
     && make \
     && make install
 
-RUN apt-get update \
-    && DEBIAN_FRONTEND=noninteractive apt-get install -y \
-       libc6-dev
+    # move uamqp lib
+RUN mv /usr/local/include/azureiot/azure_uamqp_c /usr/local/include
 
+    # make library for php
 RUN git clone https://github.com/vsouz4/azure-uamqp-php.git \
     && cd azure-uamqp-php \
     && make \
