@@ -1,0 +1,67 @@
+FROM ubuntu:18.04
+
+RUN apt-get update \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+        # php-cpp
+        wget \
+        make \
+        g++ \
+        php7.2-dev \
+        # azure-uamqp-c
+        git \
+        # cmake \
+        build-essential \
+        curl \
+        libcurl4-openssl-dev \
+        libssl-dev  \
+        uuid-dev
+
+    # install cmake >= 3.18.2 version
+RUN wget https://github.com/Kitware/CMake/releases/download/v3.29.0/cmake-3.29.0.tar.gz \
+    && tar zxvf cmake-3.29.0.tar.gz \
+    && cd cmake-3.29.0 \
+    && ./bootstrap \
+    && make \
+    && make install
+
+WORKDIR /var/www
+
+RUN git clone https://github.com/Azure/macro-utils-c \
+    && cd macro-utils-c/build \
+    && cmake .. \
+    && cmake --build . --target install
+
+    # Install Azure C Shared Utility
+RUN git clone --recursive https://github.com/Azure/azure-c-shared-utility.git \
+    && cd azure-c-shared-utility \
+    && mkdir cmake \
+    && cd cmake \
+    && cmake .. \
+    && cmake --build . --target install
+    #&& make install
+
+   # Install Azure UAMQP C
+RUN git clone --recursive https://github.com/Azure/azure-uamqp-c.git \
+    && cd azure-uamqp-c \
+    && mkdir cmake \
+    && cd cmake \
+    && cmake -Duse_installed=ON ../ \
+    && cmake --build . --target install
+
+    # Install PHP-CPP
+RUN cd /tmp \
+    && wget https://github.com/CopernicaMarketingSoftware/PHP-CPP/archive/v2.1.0.tar.gz \
+    && tar xzf v2.1.0.tar.gz \
+    && cd PHP-CPP-2.1.0 \
+    && make \
+    && make install
+
+RUN apt-get update \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+       libc6-dev
+
+RUN git clone https://github.com/vsouz4/azure-uamqp-php.git \
+    && cd azure-uamqp-php \
+    && make \
+    && make install
+

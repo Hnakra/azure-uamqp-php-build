@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+    amq-client:
+        build: amq-client/
+        stdin_open: true
+        tty: true
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+        # host.docker.internal:8080 - чтоб обратиться к 8080 на локал машине
