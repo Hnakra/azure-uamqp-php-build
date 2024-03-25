@@ -1,10 +1,10 @@
 <?php
 
-define('HOST', 'my-host.servicebus.windows.net');
-define('PORT', 5671);
-define('USE_TLS', true);
-define('KEY_NAME', 'MyKey');
-define('ACCESS_KEY', '12354csnucdr/asdiauwdefsaces23093=');
+define('HOST', 'host.docker.internal');
+define('PORT', 5672);
+define('USE_TLS', false);
+define('KEY_NAME', 'Login');
+define('ACCESS_KEY', 'Password');
 
 define('MY_TOPIC', 'myTopic');
 define('MY_SUBSCRIPTION', 'myTopic/subscriptions/mySubscription');
