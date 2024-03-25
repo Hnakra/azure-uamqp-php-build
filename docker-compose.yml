@@ -7,6 +7,5 @@ services:
         tty: true
         extra_hosts:
             - "host.docker.internal:host-gateway"
-        # host.docker.internal:8080 - чтоб обратиться к 8080 на локал машине
         volumes:
             - ./src:/var/www/html/example

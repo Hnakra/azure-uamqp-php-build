@@ -1,15 +1,11 @@
-FROM ubuntu:18.04
+FROM php:7.4-fpm
 
 RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y \
-        # php-cpp
         wget \
         make \
         g++ \
-        php7.2-dev \
-        # azure-uamqp-c
         git \
-        # cmake \
         build-essential \
         curl \
         libcurl4-openssl-dev \
@@ -38,7 +34,6 @@ RUN git clone --recursive https://github.com/Azure/azure-c-shared-utility.git \
     && cd cmake \
     && cmake .. \
     && cmake --build . --target install
-    #&& make install
 
    # Install Azure UAMQP C
 RUN git clone --recursive https://github.com/Azure/azure-uamqp-c.git \
@@ -49,10 +44,8 @@ RUN git clone --recursive https://github.com/Azure/azure-uamqp-c.git \
     && cmake --build . --target install
 
     # Install PHP-CPP
-RUN cd /tmp \
-    && wget https://github.com/CopernicaMarketingSoftware/PHP-CPP/archive/v2.1.0.tar.gz \
-    && tar xzf v2.1.0.tar.gz \
-    && cd PHP-CPP-2.1.0 \
+RUN git clone https://github.com/CopernicaMarketingSoftware/PHP-CPP \
+    && cd PHP-CPP \
     && make \
     && make install
 

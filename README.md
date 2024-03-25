@@ -22,11 +22,16 @@ docker-compose up -d
 ```
 2.3 На основе файла parameters.php.dist создайте файл parameters.php со своими параметрами подключения к брокеру.
 
-2.4 Зайдите внутрь контейнера azure-uamqp-php-build любым удобным для вас способом и перейдите в директорию с примерами
+2.4 Зайдите внутрь контейнера azure-uamqp-php-build любым удобным для вас способом, например:
+```
+docker exec -it azure-uamqp-php-build-amq-client-1 bash
+```
+
+2.5 Перейдите в директорию с примерами
 ```
 cd /var/www/html/example
 ```
-2.5 Тестируйте :)
+2.6 Тестируйте :)
 ```
 php consumer.php
 ```
